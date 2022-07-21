@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Linq;
 using WebApi.EfDbContext;
 
@@ -9,11 +10,13 @@ namespace WebApi.BookOperations.CreateBook
         public CreateBookModel Model { get ; set; }
 
         private readonly DbContextBooksStore _dbContext;
-        public CreateBookCommand(DbContextBooksStore dbContext)
+        private readonly IMapper _mapper;
+        public CreateBookCommand(DbContextBooksStore dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
-    
+
         public void Handle()
         {
 
@@ -21,11 +24,7 @@ namespace WebApi.BookOperations.CreateBook
 
             if (book is not null)
                 throw new InvalidOperationException("Bu Kitap Ekli");
-            book = new Book();
-            book.Title = Model.Title;
-            book.GenreId = Model.GenreId;
-            book.PageCount= Model.PageCount;
-            book.PublisDate = Model.PublisDate;
+            book = _mapper.Map<Book>(Model);
 
 
             _dbContext.Books.Add(book);
