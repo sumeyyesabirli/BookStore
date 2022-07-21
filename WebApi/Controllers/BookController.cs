@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -62,7 +64,15 @@ namespace WebApi.Controllers
             try
             {
                 command.Model = newBooks;
+                CreateBookCommandValidator validator = new CreateBookCommandValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
+
+                /// if (!result.IsValid)                
+                ///     foreach (var item  in result.Errors)              
+                ///         Console.WriteLine($"Özellik :{ item.PropertyName}: Hata mesajı {item.ErrorMessage}"); 
+                /// else                
+                ///     command.Handle();
 
             }
             catch (Exception ex)
@@ -106,7 +116,10 @@ namespace WebApi.Controllers
             {
                 DeleteBookCommand command = new DeleteBookCommand(_context);
                 command.BookId = id;
+                DeleteBookCommandValidator validator = new DeleteBookCommandValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
+            ;
             }
             catch (Exception ex)
             {
