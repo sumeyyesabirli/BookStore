@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using WebApi.EfDbContext;
+using WebApi.Middleware;
 
 namespace WebApi
 {
@@ -38,6 +39,7 @@ namespace WebApi
 
             services.AddDbContext<DbContextBooksStore>(options => options.UseInMemoryDatabase(databaseName:"DbBookStore"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +57,8 @@ namespace WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCustomExceptionMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
