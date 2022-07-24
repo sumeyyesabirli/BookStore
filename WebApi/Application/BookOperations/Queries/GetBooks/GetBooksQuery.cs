@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApi.Common;
 using WebApi.EfDbContext;
+using WebApi.Entities;
 
 namespace WebApi.BookOperations.GetBooks
 {

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using WebApi.EfDbContext;
+using WebApi.Entities;
 
 namespace WebApi.BookOperations.CreateBook
 {

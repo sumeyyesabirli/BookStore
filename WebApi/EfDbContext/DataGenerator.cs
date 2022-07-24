@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using WebApi.Entities;
 
 namespace WebApi.EfDbContext
 {
@@ -15,6 +16,22 @@ namespace WebApi.EfDbContext
                 {
                     return;
                 }
+                context.Genres.AddRange(
+                    new Genre
+                    {
+                        Name = "Roman"
+
+                    },
+                    new Genre
+                    {
+                        Name = "Aksiyon"
+
+                    },
+                    new Genre
+                    {
+                        Name = "Bilim Kurgu"
+
+                    });
 
                 context.Books.AddRange(
                  new Book
