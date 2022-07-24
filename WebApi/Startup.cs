@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebApi.EfDbContext;
 using WebApi.Middleware;
+using WebApi.Services;
 
 namespace WebApi
 {
@@ -39,6 +40,7 @@ namespace WebApi
 
             services.AddDbContext<DbContextBooksStore>(options => options.UseInMemoryDatabase(databaseName:"DbBookStore"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton<ILoggerService, ConsoleLogger>();
 
         }
 

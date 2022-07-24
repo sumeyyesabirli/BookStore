@@ -5,15 +5,18 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
+using WebApi.Services;
 
 namespace WebApi.Middleware
 {
     public class CustomExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public CustomExceptionMiddleware(RequestDelegate next)
+        private readonly ILoggerService _loggerService;
+        public CustomExceptionMiddleware(RequestDelegate next, ILoggerService loggerService)
         {
             _next = next;
+            _loggerService = loggerService;
         }
         public async Task Invoke(HttpContext context)
         {
@@ -21,13 +24,13 @@ namespace WebApi.Middleware
             try
             {                
                 string message = $"[Request] HTTP  {context.Request.Method} - {context.Request.Path}";
-                Console.WriteLine(message);
+                _loggerService.Write(message);
 
                 await _next(context);
                 watch.Stop();
 
                 message = $"[Response] HTTP  {context.Request.Method} - {context.Request.Path} Response {context.Response.StatusCode} - {watch.Elapsed.TotalMilliseconds} ms ";
-                Console.WriteLine(message);
+                _loggerService.Write(message);
 
             }
             catch (Exception ex)
@@ -42,7 +45,7 @@ namespace WebApi.Middleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             string message= $"[Error] HTTP {context.Request.Method} - {context.Response.StatusCode}  Hata Mesajı {ex.Message} - {watch.Elapsed.TotalMilliseconds} ms ";
-            Console.WriteLine(message);
+            _loggerService.Write(message);
 
            
             var result = JsonConvert.SerializeObject(new {error= ex.Message},Formatting.None);
