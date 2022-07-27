@@ -23,7 +23,6 @@ namespace WebApi.BookOperations.GetBooks
             var booklist = _dbContext.Books.Include(x => x.Genre).OrderBy(b => b.Id).ToList<Book>();
             List<BooksViewModel> vm = _mapper.Map<List<BooksViewModel>>(booklist);
 
-
             return vm;
         }
 

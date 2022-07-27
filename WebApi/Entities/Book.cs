@@ -12,5 +12,6 @@ namespace WebApi.Entities
         public Genre Genre{ get; set; }
         public int PageCount { get; set; }
         public DateTime PublisDate { get; set; }
+      
     }
 }

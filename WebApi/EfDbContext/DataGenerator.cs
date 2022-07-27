@@ -16,6 +16,30 @@ namespace WebApi.EfDbContext
                 {
                     return;
                 }
+                context.Authors.AddRange(
+                   new Author
+                   {
+                       Name = "Dan",
+                       lastName = "Brow",
+                       Birth = new DateTime(),
+                       BookId = 1
+                   },
+                   new Author
+                   {
+                       Name = "Frank",
+                       lastName = "Herbert",
+                       Birth = new DateTime(),
+                       BookId = 2
+
+                   },
+                   new Author
+                   {
+                       Name = "Nazım",
+                       lastName = "Hikmet",
+                       Birth = new DateTime(),
+                       BookId = 3
+
+                   });
                 context.Genres.AddRange(
                     new Genre
                     {

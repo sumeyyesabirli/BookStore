@@ -9,25 +9,26 @@ namespace WebApi.Application.GenreOperations.Commands.UpdateGenre
         public int GenreId { get; set; }
         public UpdateGenreModel Model { get; set; }
 
-        private readonly DbContextBooksStore _dbConrext;        
+        private readonly DbContextBooksStore _dbContext;
 
-        public UpdateGenreCommand(DbContextBooksStore dbConrext)
+        public UpdateGenreCommand(DbContextBooksStore dbContext)
         {
-            _dbConrext = dbConrext;
+            
+            _dbContext = dbContext;
         }
 
         public void Handle()
         {
-            var genre =_dbConrext.Genres.SingleOrDefault(g => g.Id == GenreId);
+            var genre = _dbContext.Genres.SingleOrDefault(g => g.Id == GenreId);
             if (genre is null)
                 throw new InvalidOperationException("Güncellenecek Kitap Türü Bulunamadı");
-            if (_dbConrext.Genres.Any(x=>x.Name.ToLower()==Model.Name.ToLower() && x.Id!= GenreId))
+            if (_dbContext.Genres.Any(x=>x.Name.ToLower()==Model.Name.ToLower() && x.Id!= GenreId))
                 throw new InvalidOperationException("Aynı İsimli Kitap Türü Bulunuyor");
 
             genre.Name = String.IsNullOrEmpty(Model.Name.Trim()) ? genre.Name : Model.Name;
             genre.IsActive=Model.IsActive;                 
             
-            _dbConrext.SaveChanges();
+            _dbContext.SaveChanges();
 
         }
 
