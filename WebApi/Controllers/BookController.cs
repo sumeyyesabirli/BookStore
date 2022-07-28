@@ -42,16 +42,16 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-                BookDetailViewModel result;    
+             BookDetailViewModel result;    
             
-                GetBookDetailQuery query = new GetBookDetailQuery(_context,_mapper);
-                query.BookId = id;
+             GetBookDetailQuery query = new GetBookDetailQuery(_context,_mapper);
+             query.BookId = id;
 
-                GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
-                validator.ValidateAndThrow(query);
+             GetBookDetailQueryValidator validator = new GetBookDetailQueryValidator();
+             validator.ValidateAndThrow(query);
 
-                result = query.Handle();           
-                return Ok(result);
+             result = query.Handle();           
+             return Ok(result);
             
         }
 

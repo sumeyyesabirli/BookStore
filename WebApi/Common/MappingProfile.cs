@@ -17,19 +17,28 @@ namespace WebApi.Common
     {
         public MappingProfile()
         {
-            //CreateBookModel objesi Book modele maplenebilir demek 
+            //Book Maps
             CreateMap<CreateBookModel, Book>();
-            //vm.Genre = ((GenreEnum)book.GenreId).ToString();
-            CreateMap<Book, BookDetailViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name));
-            //BooksViewModel içerisindeki Genre src üzerindei yani book içindeki GenreId yi GenreEnum dan cast ederecek GenreId string olarak bana döndür
-            CreateMap<Book,BooksViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src  => src.Genre.Name));
-            CreateMap<Genre,GenreWiewModel>();
+            CreateMap<Book, BookDetailViewModel>().
+                ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).
+                ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author.Name)).
+                ForMember(dest => dest.PublisDate, opt => opt.MapFrom(src => src.PublisDate.ToShortDateString()));
+
+            CreateMap<Book, BooksViewModel>().
+                ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).
+                ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Author.Name)).
+                ForMember(dest => dest.PublisDate, opt => opt.MapFrom(src => src.PublisDate.ToShortDateString()));
+
+            // Genre Maps
             CreateMap<Genre, GenreWiewModel>();
             CreateMap<Genre, GenreDetailWiewModel>();
-            CreateMap<Author, AuthorviewModel>().ForMember(dest => dest.Book , opt => opt.MapFrom(src => src.Book.Title));
-            CreateMap<Author, AuthorDetailViewModel>().ForMember(dest => dest.Book, opt => opt.MapFrom(src => src.Book.Title));
-            CreateMap<CreateAuthorModel, Author>();
-            CreateMap<UpdateBookModel, Book>();
+
+            // Author Maps
+            CreateMap<Author, AuthorviewModel>();
+
+            CreateMap<Author, AuthorDetailViewModel>().ForMember(d => d.Birthday, opt => opt.MapFrom(src => src.Birthday.ToShortDateString()));
+
+            CreateMap<CreateAuthorModel, Author>().ForMember(d => d.Birthday, opt => opt.MapFrom(src => src.BirthDay.ToShortDateString()));
 
 
 

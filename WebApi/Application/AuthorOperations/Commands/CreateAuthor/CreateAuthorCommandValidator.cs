@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 
 namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
 {
@@ -6,9 +7,8 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
     {
         public CreateAuthorCommandValidator()
         {
-            RuleFor(x => x.Model.Name).MinimumLength(2).NotEmpty();
-            RuleFor(x => x.Model.LastName).MinimumLength(2).NotEmpty();
-            RuleFor(x => x.Model.BookId).NotEmpty().GreaterThan(0);
+            RuleFor(command => command.Model.Name).MinimumLength(2).NotEmpty();
+            RuleFor(command => command.Model.BirthDay).NotEmpty().LessThan(DateTime.Now.Date);
 
         }
     }

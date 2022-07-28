@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 
 namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
 {
@@ -6,13 +7,11 @@ namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
     {
         public UpdateAouthorCommandValidator()
         {
-            RuleFor(x => x.Model.Name).MinimumLength(2).When(x => x.Model.Name != string.Empty);
+            RuleFor(command => command.AuthorId).GreaterThan(0);
+            RuleFor(command => command.Model.Name).NotEmpty().MinimumLength(3);
+            RuleFor(command => command.Model.Birthday).NotEmpty().LessThan(DateTime.Now);
 
-            RuleFor(x => x.Model.lastName).MinimumLength(2).When(x => x.Model.lastName != string.Empty);
 
-            RuleFor(x => x.Model.BookId).NotEmpty().GreaterThan(0);
-
-         
         }
     }
 }

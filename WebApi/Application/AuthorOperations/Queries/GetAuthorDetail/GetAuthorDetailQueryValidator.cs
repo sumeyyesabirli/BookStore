@@ -6,7 +6,7 @@ namespace WebApi.Application.AuthorOperations.Queries.GetAuthorDetail
     {
         public GetAuthorDetailQueryValidator()
         {
-            RuleFor(query => query.AuthorId).GreaterThan(0);
+            RuleFor(query => query.AuthorId).NotEmpty().GreaterThan(0);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
 
         public int AuthorId { get; set; }
 
-        public UpdateAuthorCommand(IMapper mapper, DbContextBooksStore dbcontext)
+        public UpdateAuthorCommand( DbContextBooksStore dbcontext)
         {
            
             _dbcontext = dbcontext;
@@ -23,12 +23,11 @@ namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
         {
             var author = _dbcontext.Authors.SingleOrDefault(x => x.Id == AuthorId);
 
-            if (author == null)
+            if (author is null)
                 throw new InvalidOperationException("Yazar Bulunamadı ! ");
 
-            author.BookId = Model.BookId != default ? Model.BookId : author.BookId;
             author.Name = Model.Name != default ? Model.Name : author.Name;
-            author.lastName = Model.lastName != default ? Model.lastName : author.lastName;
+            author.Birthday = Model.Birthday != default ? Model.Birthday : author.Birthday;
 
             _dbcontext.SaveChanges();
 
@@ -36,8 +35,8 @@ namespace WebApi.Application.AuthorOperations.Commands.UpdateAuthor
     }
     public class UpdateAuthorModel
     {
-        public int BookId { get; set; }
+        
         public string Name { get; set; }
-        public string lastName { get; set; }
+        public DateTime Birthday { get; set; }
     }
 }

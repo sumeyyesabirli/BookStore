@@ -60,16 +60,13 @@ namespace WebApi.Controllers
 
             command.Handle();
             return Ok();
-
-
-
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateAuthor(int id, [FromBody] UpdateAuthorModel model)
         {
 
-            UpdateAuthorCommand command = new UpdateAuthorCommand(_mapper,_context);
+            UpdateAuthorCommand command = new UpdateAuthorCommand(_context);
             command.AuthorId = id;
             command.Model = model;
 
@@ -80,6 +77,7 @@ namespace WebApi.Controllers
             return Ok();
 
         }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id)
         {

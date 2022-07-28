@@ -8,8 +8,6 @@ namespace WebApi.Application.AuthorOperations.Queries.GetAuthorDetail
 {
     public class GetAuthorDetailQuery
     {
-
-        public AuthorDetailViewModel Model;
         public int AuthorId { get; set; }
 
         private readonly DbContextBooksStore _dbcontext;
@@ -23,9 +21,9 @@ namespace WebApi.Application.AuthorOperations.Queries.GetAuthorDetail
 
         public AuthorDetailViewModel Handle()
         {
-            var author = _dbcontext.Authors.Include(x => x.Book).SingleOrDefault(x => x.Id == AuthorId);
+            var author = _dbcontext.Authors.Include(x => x.Id);
 
-            if (author == null)
+            if (author is null)
                 throw new InvalidOperationException("Yazar Bulunamadı !");
 
             AuthorDetailViewModel model = _mapper.Map<AuthorDetailViewModel>(author);
@@ -37,9 +35,8 @@ namespace WebApi.Application.AuthorOperations.Queries.GetAuthorDetail
     public class AuthorDetailViewModel
     {
         public string Name { get; set; }
-        public string LastName { get; set; }
-        public string DateOfBirth { get; set; }
-        public string Book { get; set; }
+
+        public DateTime Birthday { get; set; }
 
     }
 

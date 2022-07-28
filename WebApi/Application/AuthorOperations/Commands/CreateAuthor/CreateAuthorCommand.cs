@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using WebApi.EfDbContext;
+using WebApi.Entities;
 
 namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
 {
@@ -21,23 +22,21 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
 
         public void Handle()
         {
-            var author = _dbcontext.Authors.SingleOrDefault(x => x.Id == AuthorId);
+            var author = _dbcontext.Authors.SingleOrDefault(x => x.Name == Model.Name);
 
             if (author == null)
                 throw new InvalidOperationException("Yazar Bulunamadı ! ");
+            author = _mapper.Map<Author>(Model);
 
-            author.BookId = Model.BookId != default ? Model.BookId : author.BookId;
-            author.Name = Model.Name != default ? Model.Name : author.Name;
-            author.lastName = Model.LastName != default ? Model.LastName : author.lastName;
-
+            _dbcontext.Authors.Add(author);
             _dbcontext.SaveChanges();
+
         }
     }
     public class CreateAuthorModel
     {
-        public int BookId { get; set; }
         public string Name { get; set; }
-        public string LastName { get; set; }
+        public DateTime BirthDay { get; set; }
     }
 
 }

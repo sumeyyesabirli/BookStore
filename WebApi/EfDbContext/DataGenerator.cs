@@ -17,29 +17,18 @@ namespace WebApi.EfDbContext
                     return;
                 }
                 context.Authors.AddRange(
-                   new Author
-                   {
-                       Name = "Dan",
-                       lastName = "Brow",
-                       Birth = new DateTime(),
-                       BookId = 1
-                   },
-                   new Author
-                   {
-                       Name = "Frank",
-                       lastName = "Herbert",
-                       Birth = new DateTime(),
-                       BookId = 2
-
-                   },
-                   new Author
-                   {
-                       Name = "Nazım",
-                       lastName = "Hikmet",
-                       Birth = new DateTime(),
-                       BookId = 3
-
-                   });
+                    new Author
+                    {
+                        Name = "Dan Brown"
+                    },
+                    new Author
+                    {
+                        Name = "Frank Herbert"
+                    },
+                    new Author
+                    {
+                        Name = "Nazım Hikmet"
+                    });                
                 context.Genres.AddRange(
                     new Genre
                     {
@@ -62,9 +51,11 @@ namespace WebApi.EfDbContext
                  {
                      
                      Title = "Dijital Kale",
-                     GenreId = 1,
+                     GenreId = 3,
                      PageCount = 400,
-                     PublisDate = new DateTime(2022, 07, 07)
+                     PublisDate = new DateTime(2022, 07, 07),
+                     AuthorId = 1,
+                     IsPublished = true
 
                  },
                  new Book
@@ -73,16 +64,20 @@ namespace WebApi.EfDbContext
                      Title = "Deneme",
                      GenreId = 2,
                      PageCount = 250,
-                     PublisDate = new DateTime(2012, 08, 23)
+                     PublisDate = new DateTime(2012, 08, 23),
+                     AuthorId = 2,
+                     IsPublished = true
 
                  },
                  new Book
                  {
                      
-                     Title = "Dune",
-                     GenreId = 2,
+                     Title = "Nâzım ile Piraye",
+                     GenreId = 1,
                      PageCount = 489,
-                     PublisDate = new DateTime(2002, 10, 01)
+                     PublisDate = new DateTime(2002, 10, 01),
+                     AuthorId = 3,
+                     IsPublished = true
 
                  });
                 
