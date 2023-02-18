@@ -20,10 +20,10 @@ namespace WebApi.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly DbContextBooksStore _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public BookController(DbContextBooksStore context, IMapper mapper)
+        public BookController(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -68,6 +68,7 @@ namespace WebApi.Controllers
             return Ok();      
 
         }
+
 
         [HttpPut("{id}")]
 

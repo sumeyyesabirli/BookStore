@@ -6,11 +6,11 @@ namespace WebApi.Application.GenreOperations.Commands.DeleteGenre
 {
     public class DeleteGenreCommand
     {
-        private readonly DbContextBooksStore _dbcontext;
+        private readonly IBookStoreDbContext _dbcontext;
 
         public int GenreId { get; set; } 
 
-        public DeleteGenreCommand(DbContextBooksStore dbcontext)
+        public DeleteGenreCommand(IBookStoreDbContext dbcontext)
         {
             _dbcontext = dbcontext;
         }

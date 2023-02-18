@@ -16,23 +16,30 @@ namespace WebApi.EfDbContext
                 {
                     return;
                 }
+
                 context.Authors.AddRange(
                     new Author
                     {
-                        Name = "Dan Brown"
+                        Name = "Dan Brown",
+                        Birthday = new DateTime(1964, 06, 22),
+
                     },
                     new Author
                     {
-                        Name = "Frank Herbert"
+                        Name = "Frank Herbert",
+                        Birthday = new DateTime(1920, 10, 08),
                     },
                     new Author
                     {
-                        Name = "Nazım Hikmet"
+                        Name = "Nazım Hikmet",
+                        Birthday = new DateTime(1902, 01, 15),
                     });                
+
                 context.Genres.AddRange(
                     new Genre
                     {
-                        Name = "Roman"
+                        Name = "Roman",
+                        
 
                     },
                     new Genre
@@ -61,7 +68,7 @@ namespace WebApi.EfDbContext
                  new Book
                  {
                      
-                     Title = "Deneme",
+                     Title = "Dune",
                      GenreId = 2,
                      PageCount = 250,
                      PublisDate = new DateTime(2012, 08, 23),

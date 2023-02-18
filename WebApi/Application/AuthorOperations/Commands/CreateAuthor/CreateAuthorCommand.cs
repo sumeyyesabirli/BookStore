@@ -8,13 +8,13 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
 {
     public class CreateAuthorCommand
     {
-        private readonly DbContextBooksStore _dbcontext;
+        private readonly IBookStoreDbContext _dbcontext;
         private readonly IMapper _mapper;
 
         public int AuthorId { get; set; }
         public CreateAuthorModel Model { get; set; }
 
-        public CreateAuthorCommand(DbContextBooksStore dbcontext, IMapper mapper)
+        public CreateAuthorCommand(IBookStoreDbContext dbcontext, IMapper mapper)
         {
             _dbcontext = dbcontext;
             _mapper = mapper;
@@ -24,7 +24,7 @@ namespace WebApi.Application.AuthorOperations.Commands.CreateAuthor
         {
             var author = _dbcontext.Authors.SingleOrDefault(x => x.Name == Model.Name);
 
-            if (author == null)
+            if (author is not null)
                 throw new InvalidOperationException("Yazar Bulunamadı ! ");
             author = _mapper.Map<Author>(Model);
 

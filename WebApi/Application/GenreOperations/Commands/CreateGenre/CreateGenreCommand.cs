@@ -12,15 +12,14 @@ namespace WebApi.Application.GenreOperations.Commands.CreateGenre
 
         public CreateGrenreModel Model { get; set; }
 
-        private readonly DbContextBooksStore _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
         
 
-        public CreateGenreCommand(DbContextBooksStore dbContext)
+        public CreateGenreCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
-          
+         
         }
-
         public void Handle()
         {   
             var genre = _dbContext.Genres.SingleOrDefault(g => g.Name == Model.Name);
@@ -35,12 +34,7 @@ namespace WebApi.Application.GenreOperations.Commands.CreateGenre
        
     }
     public class CreateGrenreModel
-    {
-        
+    {        
         public string Name { get; set; }
-      
-
     }
-
-
 }
