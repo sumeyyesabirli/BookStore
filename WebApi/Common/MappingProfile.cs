@@ -3,10 +3,13 @@ using WebApi.Application.AuthorOperations.Commands.CreateAuthor;
 using WebApi.Application.AuthorOperations.Queries.GetAuthorDetail;
 using WebApi.Application.GenreOperations.Queries.GetGenreDetail;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
+using WebApi.Application.UserOperations.Commands.CreateUser;
+using WebApi.Application.UserOperations.Queries.GetDetailUser;
 using WebApi.BookOperations.CreateBook.GetBookDetail;
 using WebApi.Entities;
 using static WebApi.Application.AuthorOperations.Queries.GetAuthor.GetAuthorQuery;
 using static WebApi.Application.GenreOperations.Commands.CreateGenre.CreateGenreCommand;
+using static WebApi.Application.UserOperations.Commands.UpdateUser.UpdateUserCommand;
 using static WebApi.BookOperations.CreateBook.CreateBookCommand;
 using static WebApi.BookOperations.GetBooks.GetBooksQuery;
 using static WebApi.BookOperations.UpdateBook.UpdateBookCommand;
@@ -40,6 +43,10 @@ namespace WebApi.Common
 
             CreateMap<CreateAuthorModel, Author>().ForMember(d => d.Birthday, opt => opt.MapFrom(src => src.BirthDay.ToShortDateString()));
 
+            CreateMap<CreateUserModel, User>();
+            CreateMap<User, GetDetailUserQuery>();
+            CreateMap<UpdateUserModel, User>();
+            CreateMap<CreateBookModel, User>();
 
 
         }

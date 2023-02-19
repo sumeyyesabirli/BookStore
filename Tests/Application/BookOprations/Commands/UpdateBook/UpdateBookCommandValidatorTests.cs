@@ -39,14 +39,14 @@ namespace Tests.Application.BookOprations.Commands.UpdateBook
         }
 
         [Theory]
-        [InlineData("", 0, 0)]
-        [InlineData(null, 0, 0)]
-        [InlineData("x", 1, 1)]
-        [InlineData("123", 2, 2)]
+        [InlineData("", 0)]
+        [InlineData(null, 0)]
+        [InlineData("x", 1)]
+        [InlineData("123", 2)]
         public void WhenModelIsInvalid_Validator_ShouldHaveError(string title, int genreId)
         {
             // arrange
-            var model = new UpdateBookCommand.UpdateBookModel { Title = title, GenreId = genreId, };
+            var model = new UpdateBookCommand.UpdateBookModel { Title = title, GenreId = genreId};
             UpdateBookCommand updateCommand = new(null);
             updateCommand.BookId = 1;
             updateCommand.Model = model;
@@ -59,8 +59,8 @@ namespace Tests.Application.BookOprations.Commands.UpdateBook
         }
 
         [Theory]
-        [InlineData("Title", 1, 1)]
-        [InlineData("Long Title", 2, 2)]
+        [InlineData("Title", 1)]
+        [InlineData("Long Title", 2)]
         public void WhenInputsAreValid_Validator_ShouldNotHaveError(string title, int genreId)
         {
             // arrange
